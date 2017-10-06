@@ -71,7 +71,7 @@ export default class Generator {
   getPeriod() {
 		const lastItem = this.list[this.size - 1];
 
-		const firstIndex = this.list.indexOf(lastItem);
+    const firstIndex = this.list.indexOf(lastItem);
 		const secondIndex = ~firstIndex ? this.list.indexOf(lastItem, firstIndex + 1) : -1;
 
     return ~firstIndex && ~secondIndex ? secondIndex - firstIndex : 0;
