@@ -34,15 +34,12 @@ export default class Generator {
     let leftBorder = min;
     let rightBorder = min + delta;
 
-    for (let i = 0; i <
-    this.numOfIntervals; i++, leftBorder += delta, rightBorder += delta) {
+    for (let i = 0; i < this.numOfIntervals; i++, leftBorder += delta, rightBorder += delta) {
       this.labels.push(leftBorder.toFixed(2) + ' - ' + rightBorder.toFixed(2));
-      this.entries.push(this.list.filter(
-          item => item >= leftBorder && item < rightBorder).length);
+      this.entries.push(this.list.filter(item => item >= leftBorder && item < rightBorder).length);
     }
 
-    this.entries[this.numOfIntervals - 1] += this.list.reduce(
-        item => item === max ? 1 : 0, 0);
+    this.entries[this.numOfIntervals - 1] += this.list.reduce(item => item === max ? 1 : 0, 0);
   }
 
   getExpectation(precision = 9) {
@@ -52,23 +49,17 @@ export default class Generator {
   getDispersion(precision = 9) {
     const expectation = this.getExpectation();
 
-    return (this.list.reduce(
-        (sum, item) => sum + Math.pow(item, 2) - Math.pow(expectation, 2), 0) /
-        (this.size - 1)).toFixed(precision);
+    return (this.list.reduce((sum, item) => sum + Math.pow(item, 2) - Math.pow(expectation, 2), 0) /(this.size - 1)).toFixed(precision);
   }
 
   getSKO(precision = 9) {
     const expectation = this.getExpectation();
 
-    return (this.list.reduce(
-        (sum, item) => sum + Math.pow(item - expectation, 2), 0) /
-        (this.size - 1)).toFixed(precision);
+    return (this.list.reduce((sum, item) => sum + Math.pow(item - expectation, 2), 0) /(this.size - 1)).toFixed(precision);
   }
 
   getUniformity(precision = 9) {
-    let pairsCount = _.chunk(this.list, 2).
-        filter(
-            pair => (Math.pow(pair[0], 2) + Math.pow(pair[1], 2)) < 1).length;
+    let pairsCount = _.chunk(this.list, 2).filter(pair => (Math.pow(pair[0], 2) + Math.pow(pair[1], 2)) < 1).length;
 
     return (2 * pairsCount / this.size).toFixed(precision);
   }
@@ -81,8 +72,7 @@ export default class Generator {
     const lastItem = this.list[this.size - 1];
 
     const firstIndex = this.list.indexOf(lastItem);
-    const secondIndex = ~firstIndex ? this.list.indexOf(lastItem, firstIndex +
-        1) : -1;
+    const secondIndex = ~firstIndex ? this.list.indexOf(lastItem, firstIndex + 1) : -1;
 
     return ~firstIndex && ~secondIndex ? secondIndex - firstIndex : 0;
   }
