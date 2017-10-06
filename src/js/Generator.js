@@ -21,9 +21,9 @@ export default class Generator {
   }
 
   generateList() {
-    for (let i = 0, prev = this.r0; i < this.size; i++) {
-      prev = (this.a * prev) % this.m;
-      this.list.push(prev / this.m);
+    for (let i = 0; i < this.size; i++) {
+      this.r0 = (this.a * this.r0) % this.m;
+      this.list.push(this.r0 / this.m);
     }
   }
 
