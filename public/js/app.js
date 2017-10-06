@@ -17323,8 +17323,7 @@ module.exports = __webpack_require__(199);
 var _chart = __webpack_require__(134);var _chart2 = _interopRequireDefault(_chart);
 var _Generator = __webpack_require__(182);var _Generator2 = _interopRequireDefault(_Generator);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
-document.getElementById('generatorActions').
-addEventListener('submit', function (event) {
+document.getElementById('generatorActions').addEventListener('submit', function (event) {
   var a = document.getElementById('aParam').value;
   var r0 = document.getElementById('r0Param').value;
   var m = document.getElementById('mParam').value;
@@ -30375,9 +30374,9 @@ Generator = function () {
   }(0, _createClass3.default)(Generator, [{ key: 'generateList', value: function generateList()
 
     {
-      for (var i = 0, prev = this.r0; i < this.size; i++) {
-        prev = this.a * prev % this.m;
-        this.list.push(prev / this.m);
+      for (var i = 0; i < this.size; i++) {
+        this.r0 = this.a * this.r0 % this.m;
+        this.list.push(this.r0 / this.m);
       }
     } }, { key: 'spliceList', value: function spliceList()
 
@@ -30388,15 +30387,12 @@ Generator = function () {
       var leftBorder = min;
       var rightBorder = min + delta;
 
-      for (var i = 0; i <
-      this.numOfIntervals; i++, leftBorder += delta, rightBorder += delta) {
+      for (var i = 0; i < this.numOfIntervals; i++, leftBorder += delta, rightBorder += delta) {
         this.labels.push(leftBorder.toFixed(2) + ' - ' + rightBorder.toFixed(2));
-        this.entries.push(this.list.filter(
-        function (item) {return item >= leftBorder && item < rightBorder;}).length);
+        this.entries.push(this.list.filter(function (item) {return item >= leftBorder && item < rightBorder;}).length);
       }
 
-      this.entries[this.numOfIntervals - 1] += this.list.reduce(
-      function (item) {return item === max ? 1 : 0;}, 0);
+      this.entries[this.numOfIntervals - 1] += this.list.reduce(function (item) {return item === max ? 1 : 0;}, 0);
     } }, { key: 'getExpectation', value: function getExpectation()
 
     {var precision = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 9;
@@ -30406,23 +30402,15 @@ Generator = function () {
     {var precision = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 9;
       var expectation = this.getExpectation();
 
-      return (this.list.reduce(
-      function (sum, item) {return sum + Math.pow(item, 2) - Math.pow(expectation, 2);}, 0) / (
-      this.size - 1)).toFixed(precision);
+      return (this.list.reduce(function (sum, item) {return sum + Math.pow(item - expectation, 2);}, 0) / (this.size - 1)).toFixed(precision);
     } }, { key: 'getSKO', value: function getSKO()
 
     {var precision = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 9;
-      var expectation = this.getExpectation();
-
-      return (this.list.reduce(
-      function (sum, item) {return sum + Math.pow(item - expectation, 2);}, 0) / (
-      this.size - 1)).toFixed(precision);
+      return Math.sqrt(this.getDispersion(precision)).toFixed(precision);
     } }, { key: 'getUniformity', value: function getUniformity()
 
     {var precision = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 9;
-      var pairsCount = _lodash2.default.chunk(this.list, 2).
-      filter(
-      function (pair) {return Math.pow(pair[0], 2) + Math.pow(pair[1], 2) < 1;}).length;
+      var pairsCount = _lodash2.default.chunk(this.list, 2).filter(function (pair) {return Math.pow(pair[0], 2) + Math.pow(pair[1], 2) < 1;}).length;
 
       return (2 * pairsCount / this.size).toFixed(precision);
     } }, { key: 'getStandartUniformity', value: function getStandartUniformity()
@@ -30435,8 +30423,7 @@ Generator = function () {
       var lastItem = this.list[this.size - 1];
 
       var firstIndex = this.list.indexOf(lastItem);
-      var secondIndex = ~firstIndex ? this.list.indexOf(lastItem, firstIndex +
-      1) : -1;
+      var secondIndex = ~firstIndex ? this.list.indexOf(lastItem, firstIndex + 1) : -1;
 
       return ~firstIndex && ~secondIndex ? secondIndex - firstIndex : 0;
     } }, { key: 'getAperiod', value: function getAperiod()
