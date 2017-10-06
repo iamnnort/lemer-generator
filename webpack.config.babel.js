@@ -20,6 +20,11 @@ export default {
     extensions: ['.js', '.scss', '.css']
   },
   watch: true,
+  devServer: {
+    contentBase: __dirname,
+    compress: true,
+    port: 9000,
+  },
   module: {
     loaders: [
       {
