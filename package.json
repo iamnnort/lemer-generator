@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "./node_modules/.bin/webpack-dev-server"
+    "start": "./node_modules/.bin/webpack-dev-server",
+    "start:dev": "./node_modules/.bin/webpack"
   },
   "author": "Nikita Pavets",
   "license": "ISC",

@@ -49,13 +49,11 @@ export default class Generator {
   getDispersion(precision = 9) {
     const expectation = this.getExpectation();
 
-    return (this.list.reduce((sum, item) => sum + Math.pow(item, 2) - Math.pow(expectation, 2), 0) /(this.size - 1)).toFixed(precision);
+    return (this.list.reduce((sum, item) => sum + Math.pow(item - expectation, 2), 0) / (this.size - 1)).toFixed(precision);
   }
 
   getSKO(precision = 9) {
-    const expectation = this.getExpectation();
-
-    return (this.list.reduce((sum, item) => sum + Math.pow(item - expectation, 2), 0) /(this.size - 1)).toFixed(precision);
+    return Math.sqrt(this.getDispersion(precision)).toFixed(precision);
   }
 
   getUniformity(precision = 9) {
