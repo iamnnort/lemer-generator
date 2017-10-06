@@ -1,20 +1,21 @@
 import Chart from 'chart.js';
 import Generator from './Generator';
 
-document.getElementById('generatorActions').addEventListener('submit', (event) => {
-  const a = document.getElementById('aParam').value;
-  const r0 = document.getElementById('r0Param').value;
-  const m = document.getElementById('mParam').value;
-  
-  const generator = new Generator({a: +a, r0: +r0, m: +m}, 1000000);
-  const graphicContainer = document.createElement("canvas");
-  const graphic= graphicContainer.getContext('2d');
-  
-  generator.generateList();
-  generator.spliceList();
+document.getElementById('generatorActions').
+    addEventListener('submit', (event) => {
+      const a = document.getElementById('aParam').value;
+      const r0 = document.getElementById('r0Param').value;
+      const m = document.getElementById('mParam').value;
 
-  const resultContainer = document.getElementById("generatorResult");
-  resultContainer.innerHTML = `
+      const generator = new Generator({a: +a, r0: +r0, m: +m}, 1000000);
+      const graphicContainer = document.createElement('canvas');
+      const graphic = graphicContainer.getContext('2d');
+
+      generator.generateList();
+      generator.spliceList();
+
+      const resultContainer = document.getElementById('generatorResult');
+      resultContainer.innerHTML = `
     <h3>Result</h3>
     <ul class="list-group">
       <li class="list-group-item">
@@ -43,29 +44,31 @@ document.getElementById('generatorActions').addEventListener('submit', (event) =
       </li>
     </ul>
   `;
-  resultContainer.appendChild(graphicContainer);
+      resultContainer.appendChild(graphicContainer);
 
-  new Chart(graphic, {
-    type: 'bar',
-    data: {
-      labels: generator.labels,
-      datasets: [{
-        label: 'Lemer list',
-        data: generator.entries,
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-              beginAtZero:true
-          }
-        }]
-      }
-    }
-  });
+      new Chart(graphic, {
+        type: 'bar',
+        data: {
+          labels: generator.labels,
+          datasets: [
+            {
+              label: 'Lemer list',
+              data: generator.entries,
+              borderWidth: 1,
+            }],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              }],
+          },
+        },
+      });
 
-  event.preventDefault();
-  return false;
-}, false);
+      event.preventDefault();
+      return false;
+    }, false);
